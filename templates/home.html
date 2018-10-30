@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Scrubbers</title>
+    <link href="{{ url_for('static', filename='css/master.css') }}" />
+  </head>
+  <body>
+    <h1>Please enter text to scrub-a-lubba-dub-dub!</h1>
+    <form class="" action="/scrubbers" method="POST">
+      <input type="text" name="input_text">
+      <input type="submit">
+    </form>
+
+    <div class="row">
+      <div class="column">Original: {{ text }}</div>
+      <div class="column">Scrubbed: {{ scrubbed }}</div>
+    </div>
+  </body>
+</html>
