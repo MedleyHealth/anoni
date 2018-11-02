@@ -37,6 +37,7 @@ html, body {
 .column {
   float: left;
   width: 50%;
+  white-space: pre-line;
 }
 
 .display {
