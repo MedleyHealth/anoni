@@ -9,7 +9,6 @@ import json
 
 app = Flask(__name__)
 api = Api(app)
-api.add_resource(Scrubber, '/api/scrub')
 swagger = Swagger(app)
 
 @app.route('/')
@@ -26,6 +25,23 @@ def demo():
         scrubbed = f.read()
 
     return render_template('home.html', text=text, scrubbed=scrubbed)
+
+@app.route('/api/scrub', methods=['POST'])
+def scrub():
+    """Removes personal information from free text
+    ---
+    parameters:
+      - name: input_text
+        in: query
+        type: string
+        required: true
+    """
+
+    data = request.get_json()
+    text = data['text']
+    scrubbed = deidentify(text)
+
+    return jsonify(text=text, scrubbed=scrubbed)
 
 
 class Scrubber(Resource):
@@ -45,6 +61,8 @@ class Scrubber(Resource):
 
         return jsonify(text=text, scrubbed=scrubbed)
 
+
 if __name__ == '__main__':
 
+    api.add_resource(Scrubber, '/api/scrub')
     app.run(host='0.0.0.0', port='5000')
