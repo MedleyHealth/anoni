@@ -9,6 +9,7 @@ import json
 
 app = Flask(__name__)
 api = Api(app)
+api.add_resource(Scrubber, '/api/scrub')
 swagger = Swagger(app)
 
 @app.route('/')
@@ -45,7 +46,5 @@ class Scrubber(Resource):
         return jsonify(text=text, scrubbed=scrubbed)
 
 if __name__ == '__main__':
-
-    api.add_resource(Scrubber, '/api/scrub')
 
     app.run(host='0.0.0.0', port='5000')
