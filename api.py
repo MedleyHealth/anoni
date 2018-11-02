@@ -1,10 +1,14 @@
-from flask import Flask, request, render_template
+from flask import Flask, request, render_template, jsonify
+from flask.json import load
+from flask_restful import Resource, Api
 from flasgger import Swagger
-
 from scrubber import deidentify
+
+import json
 
 
 app = Flask(__name__)
+api = Api(app)
 swagger = Swagger(app)
 
 @app.route('/')
@@ -12,8 +16,18 @@ def home():
     return render_template('home.html')
 
 
-@app.route('/scrubbers', methods=['POST'])
-def scrub():
+@app.route('/demo')
+def demo():
+    with open('static/txt/identified_demo.txt') as f:
+        text = f.read()
+
+    with open('static/txt/deidentified_demo.txt') as f:
+        scrubbed = f.read()
+
+    return render_template('home.html', text=text, scrubbed=scrubbed)
+
+
+class Scrubber(Resource):
     """Removes personal information from free text
     ---
     parameters:
@@ -23,11 +37,15 @@ def scrub():
         required: true
     """
 
-    text = request.form['input_text']
-    di = deidentify(text)
+    def post(self):
+        data = request.get_json()
+        text = data['text']
+        scrubbed = deidentify(text)
 
-    return render_template('home.html', text=text, scrubbed=di)
+        return jsonify(text=text, scrubbed=scrubbed)
 
 if __name__ == '__main__':
 
-    app.run(host='0.0.0.0', port='5000')
+    api.add_resource(Scrubber, '/api/scrub')
+
+    app.run(host='0.0.0.0', port='5000', debug=True)

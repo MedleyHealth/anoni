@@ -4,28 +4,34 @@
     <meta charset="utf-8">
     <title>Scrubbers</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/master.css') }}" />
+    <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
   </head>
+
   <body>
     <div class="header">
 
     </div>
 
     <div class="content">
-      <h1>Please enter text to scrub-a-lubba-dub-dub!</h1>
-      <form class="" action="/scrubbers" method="POST" id="textform">
+      <h2>Please enter text to scrub-a-lubba-dub-dub!</h2>
+      <form class="" id="textform">
         <div><textarea name="input_text" form="textform" class="textarea-form" placeholder="Enter text here..."></textarea></div>
-        <div><input type="submit"></div>
+        <div><input name="submit" type="submit" id="text-submit"></div>
       </form>
 
       <div class="row">
-        <div class="column">Original</div>
-        <div class="column">Scrubbed</div>
+        <div class="column"><h3>Original</h3></div>
+        <div class="column"><h3>Scrubbed</h3></div>
       </div>
       <div class="row">
-        <div class="column display">{{ text }}</div>
-        <div class="column display">{{ scrubbed }}</div>
+        <div class="column display" id="original">{{ text }}</div>
+        <div class="column display" id="scrubbed">{{ scrubbed}}</div>
       </div>
     </div>
 
   </body>
+
+  <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+
 </html>
