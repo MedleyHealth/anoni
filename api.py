@@ -24,8 +24,6 @@ def demo():
     with open('static/txt/deidentified_demo.txt') as f:
         scrubbed = f.read()
 
-    print(text)
-
     return render_template('home.html', text=text, scrubbed=scrubbed)
 
 @app.route('/api/scrub', methods=['POST'])
