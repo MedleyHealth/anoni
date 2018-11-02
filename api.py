@@ -19,10 +19,10 @@ def home():
 @app.route('/demo')
 def demo():
     with open('static/txt/identified_demo.txt') as f:
-        text = f.read()
+        text = f.readlines()
 
     with open('static/txt/deidentified_demo.txt') as f:
-        scrubbed = f.read()
+        scrubbed = f.readlines()
 
     return render_template('home.html', text=text, scrubbed=scrubbed)
 
