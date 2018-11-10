@@ -1,7 +1,13 @@
 from datetime import datetime
 import spacy
 import re
+import pickle
 
+nlp = spacy.load('en_core_web_sm')
+
+with open('data/names.set', 'rb') as f:
+    names_set = pickle.load(f)
+    print(type(names_set))
 
 geo = ['Illinois', 'IL', 'United States', 'US', 'United States of America', 'USA']
 
@@ -14,6 +20,8 @@ phis = [
     ('[*IPv4*]', '\\b(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\\b'),
     ('[*IPv6*]', '\\b(([0-9a-fA-F]{1,4}:){7,7}[0-9a-fA-F]{1,4}|([0-9a-fA-F]{1,4}:){1,7}:|([0-9a-fA-F]{1,4}:){1,6}:[0-9a-fA-F]{1,4}|([0-9a-fA-F]{1,4}:){1,5}(:[0-9a-fA-F]{1,4}){1,2}|([0-9a-fA-F]{1,4}:){1,4}(:[0-9a-fA-F]{1,4}){1,3}|([0-9a-fA-F]{1,4}:){1,3}(:[0-9a-fA-F]{1,4}){1,4}|([0-9a-fA-F]{1,4}:){1,2}(:[0-9a-fA-F]{1,4}){1,5}|[0-9a-fA-F]{1,4}:((:[0-9a-fA-F]{1,4}){1,6})|:((:[0-9a-fA-F]{1,4}){1,7}|:)|fe80:(:[0-9a-fA-F]{0,4}){0,4}%[0-9a-zA-Z]{1,}|::(ffff(:0{1,4}){0,1}:){0,1}((25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])\.){3,3}(25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])|([0-9a-fA-F]{1,4}:){1,4}:((25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])\.){3,3}(25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9]))\\b'),
 ]
+
+
 
 
 def replace_entity(token):
@@ -50,8 +58,25 @@ def scrub_rule(text, replacement, pattern):
     return re.sub(pattern, replacement, text)
 
 
+def scrub_name(text):
+    doc = nlp(text)
+
+    di = ''
+
+    for i, token in enumerate(doc):
+        space = ' ' if token.text_with_ws[-1] == ' ' else ''
+        if token.text.upper() in names_set:
+            di += '[*NAME*]' + space
+        else:
+            di += token.text_with_ws
+
+    print(di)
+
+    return di
+
+
 def deidentify(text):
-    nlp = spacy.load('en_core_web_sm')
+
     doc = nlp(text)
     di = scrub_ml(doc)
 
@@ -59,30 +84,36 @@ def deidentify(text):
         replacement, pattern = phi
         di = scrub_rule(di, replacement, pattern)
 
+    di = scrub_name(di)
+
     return str(di)
 
 
 if __name__ == '__main__':
+    print('TO' in names_set)
+    # entries = get_data()
+    #
+    # for i, entry in enumerate(entries):
+    #     # if i > 3: break
+    #     if i % 100 == 0: print(i)
+    #
+    #     patient, note, text = entry
+    #
+    #     T += 'Patient {}\tNote {}\n'.format(patient, note)
+    #
+    #     doc = nlp(text)
+    #     di = scrub(doc)
+    #
+    #     # for phi in phis:
+    #     #     repl, pattern = phi
+    #     #     di = scrubify(di, repl, pattern)
+    #
+    # with open('test.phi', 'w') as f:
+    #     f.write(T)
+    #
+    # print(T)
 
-    nlp = load_nlp(size='small')
-    entries = get_data()
 
-    for i, entry in enumerate(entries):
-        # if i > 3: break
-        if i % 100 == 0: print(i)
-
-        patient, note, text = entry
-
-        T += 'Patient {}\tNote {}\n'.format(patient, note)
-
-        doc = nlp(text)
-        di = scrub(doc)
-
-        # for phi in phis:
-        #     repl, pattern = phi
-        #     di = scrubify(di, repl, pattern)
-
-    with open('test.phi', 'w') as f:
-        f.write(T)
-
-    print(T)
+# Regex matching
+# Dictionary lookup
+# Natural language processing via machine learning
