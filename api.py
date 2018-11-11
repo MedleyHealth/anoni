@@ -1,4 +1,4 @@
-from flask import Flask, request, render_template, jsonify
+from flask import Flask, request, render_template, jsonify, make_response
 from flask.json import load
 from flask_restful import Resource, Api
 from flasgger import Swagger
@@ -6,10 +6,15 @@ from scrubber import deidentify
 
 import json
 
-
 app = Flask(__name__)
 api = Api(app)
 swagger = Swagger(app)
+
+
+@app.errorhandler(404)
+def not_found(error):
+    return make_response(jsonify({'error': 'Not found'}), 404)
+
 
 @app.route('/')
 def home():
