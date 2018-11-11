@@ -8,6 +8,10 @@ html, body {
   text-align: center;
 }
 
+.disclaimer {
+  margin: 5px;
+}
+
 .textarea-form {
   width: 75%;
   height: 100px;
