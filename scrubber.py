@@ -7,11 +7,11 @@ nlp = spacy.load('en_core_web_sm')
 
 with open('data/names.set', 'rb') as f:
     names_set = pickle.load(f)
-    print(type(names_set))
 
 geo = ['Illinois', 'IL', 'United States', 'US', 'United States of America', 'USA']
 
 phis = [
+    # ('[*ADDRESS*]', '\\b(\d{3,})\s?(\w{0,5})\s([a-zA-Z]{2,30})\s([a-zA-Z]{2,15})\.?\s?(\w{0,5})\\b'),
     ('[*EMAIL*]', '\\b([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)\\b'),
     ('[*PHONE*]', '\\b(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]\d{3}[\s.-]\d{4}\\b'),
     ('[*ZIPCODE*]', '\\b\d{5}(?:-\d{4})?\\b'),
@@ -70,8 +70,6 @@ def scrub_name(text):
         else:
             di += token.text_with_ws
 
-    print(di)
-
     return di
 
 
@@ -90,7 +88,7 @@ def deidentify(text):
 
 
 if __name__ == '__main__':
-    print('TO' in names_set)
+    pass
     # entries = get_data()
     #
     # for i, entry in enumerate(entries):
