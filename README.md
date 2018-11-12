@@ -10,6 +10,12 @@ De-identified medical data may be used for secondary purposes (ie. research) and
 
 Historically, free text has been very difficult to properly de-identify. Anoni aims to make it achievable.
 
+## Demo
+
+A live version of the de-identification prototype is [here](https://deidentify.ml/demo).
+
+Please do not enter any actual protected health information into the website.
+
 ## Setting Up Locally
 
 Change into the directory you want to store the files, clone the repository, and change into the new directory:
