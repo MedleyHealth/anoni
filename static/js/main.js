@@ -26,11 +26,12 @@ function postScrub(e) {
       data: data,
       dataType: 'json',
       success: function (response) {
-        let text = response['text']
-        let scrubbed = response['scrubbed']
+        let deidDoc = response['document']
+        let idedText = deidDoc['ided_text']
+        let deidText = deidDoc['deid_text']
 
-        originalDiv.innerText = text;
-        scrubbedDiv.innerText = scrubbed;
+        originalDiv.innerText = idedText;
+        scrubbedDiv.innerText = deidText;
       }
   })
 }

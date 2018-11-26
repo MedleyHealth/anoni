@@ -2,6 +2,6 @@
 
 He can be reached at [*EMAIL*] or [*PHONE*]. He lives in [*GPE*], Illinois, USA zipcode [*ZIPCODE*] and has a vacation home in zipcode [*ZIPCODE*].
 
-His social security number is [*SSN*]. His personal website is [*ORG*].
+His social security number is [*SSN*]. His personal website is [*URL*].
 
 His laptop's IP address is [*IPv4*], his desktop is [*IPv6*], and 999.999.999.999 is not a valid IP address nor is 127.000.000.001.

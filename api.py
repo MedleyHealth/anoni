@@ -44,9 +44,9 @@ def scrub():
 
     data = request.get_json()
     text = data['text']
-    scrubbed = deidentify(text)
+    document = deidentify(text)
 
-    return jsonify(text=text, scrubbed=scrubbed)
+    return jsonify(document=document)
 
 
 class Scrubber(Resource):
