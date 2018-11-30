@@ -169,7 +169,6 @@ def manage_conflicts(phi_entries):
         inner_conflict = prev_begin <= current_begin and prev_end >= current_end
 
         if left_conflict or right_conflict or inner_conflict:
-            # print(entry)
             phi_entries.remove(entry)
         else:
             prev_begin = current_begin
@@ -303,11 +302,6 @@ def deidentify(text):
     phi_entries = scrubber(text)
     deid = replace_phi(text, phi_entries)
     document = new_document(text, deid, phi_entries)
-
-    # print(text)
-    # print(phi_entries)
-    # print(deid)
-    # print(document)
 
     return document
 
