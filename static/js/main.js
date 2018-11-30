@@ -27,8 +27,8 @@ function postScrub(e) {
       dataType: 'json',
       success: function (response) {
         let deidDoc = response['document']
-        let idedText = deidDoc['ided_text']
-        let deidText = deidDoc['deid_text']
+        let idedText = deidDoc['text']
+        let deidText = deidDoc['deid']
 
         originalDiv.innerText = idedText;
         scrubbedDiv.innerText = deidText;

@@ -1,4 +1,4 @@
-[*PERSON*] came into [*ORG*] with a headache and 102F fever on [*DATE-2018*]. [*PERSON*] was diagnosed with influenza and told to rest and drink plenty of fluids.
+[*PERSON*] came into [*ORG*] with a headache and 102F fever on [*DATE*]. [*PERSON*] was diagnosed with influenza and told to rest and drink plenty of fluids.
 
 He can be reached at [*EMAIL*] or [*PHONE*]. He lives in [*GPE*], Illinois, USA zipcode [*ZIPCODE*] and has a vacation home in zipcode [*ZIPCODE*].
 
