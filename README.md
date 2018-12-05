@@ -51,7 +51,7 @@ Now you're free to modify the source code and play around! Visit the website in 
 
 [http://0.0.0.0:5000/](http://0.0.0.0:5000/)
 
-## Training a new model
+## Training a New Model
 
 Coming soon...
 
