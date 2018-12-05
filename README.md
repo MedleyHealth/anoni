@@ -53,5 +53,5 @@ Now you're free to modify the source code and play around! Visit the website in 
 
 ## Acknowledgements
 
-Big thanks to [Explosion AI](https://explosion.ai) for their incredible NLP library called Spacy. 
+Big thanks to [Explosion AI](https://explosion.ai) and all its contributors for their incredible open-sourced NLP library called Spacy. 
 
