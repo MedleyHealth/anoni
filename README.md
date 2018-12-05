@@ -57,5 +57,5 @@ Coming soon...
 
 ## Acknowledgements
 
-Big thanks to [Explosion AI](https://explosion.ai) and all its contributors for their incredible open-sourced NLP library called Spacy. 
+Big thanks to [Explosion AI](https://explosion.ai) and all its contributors for their incredible open-sourced NLP library called [Spacy](https://github.com/explosion/spaCy). 
 
