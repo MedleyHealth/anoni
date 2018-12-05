@@ -21,4 +21,19 @@ neuralcoref/
 # Database binaries
 *.sqlite3
 
+# Mac files
 .DS_Store
+_DS_Store
+
+# Floydhub files
+floyd.yml
+.floydexpt
+.floydignore
+.floyddata
+floyd_requirements.txt
+
+# Physio-Net Nursing Notes Files (IMPORTANT BECAUSE THEY CONTAIN PHI)
+id.text
+id-phi.phrase
+id.phi
+ner.data
