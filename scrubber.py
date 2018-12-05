@@ -7,10 +7,14 @@ import pickle
 
 from addins import regex_patterns, geo
 
+custom_model = True
 
-nlp = spacy.load('en_core_web_sm')
+if custom_model:
+    nlp = spacy.load('model')
+else:
+    nlp = spacy.load('en_core_web_sm')
 
-with open('data/names.set', 'rb') as f:
+with open('data/dicts/names.set', 'rb') as f:
     names_set = pickle.load(f)
 
 
@@ -52,15 +56,34 @@ def replace_entity(token):
 
     """
 
+    phi_types = [
+        'Age',
+        'Other',
+        'PTName',
+        'Initial',
+        'Location',
+        'PTName',
+        'Date',
+        'DateYear',
+        'Phone',
+        'Relative',
+        'ProxyName',
+        'HCPName',
+    ]
+
     phi_type = None
 
-    if token.ent_iob != 0 and token.text.find('\n') == -1:
-        if token.ent_type_ == 'PERSON':
-            phi_type = 'PERSON'
-        elif token.ent_type_ == 'ORG':
-            phi_type = 'ORG'
-        elif token.ent_type_ == 'GPE' and not [g for g in geo if g in token.text]:
-            phi_type = 'GPE'
+    if token.ent_iob != 'O' and token.text.find('\n') == -1:
+        if custom_model:
+            if token.ent_type_ in phi_types:
+                phi_type = token.ent_type_.upper()
+        else:
+            if token.ent_type_ == 'PERSON':
+                phi_type = 'PERSON'
+            elif token.ent_type_ == 'ORG':
+                phi_type = 'ORG'
+            elif token.ent_type_ == 'GPE' and not [g for g in geo if g in token.text]:
+                phi_type = 'GPE'
 
     if phi_type:
         index_start = token.idx
