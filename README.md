@@ -6,7 +6,7 @@ To make medical data accessible and advance medical research.
 
 Healthcare stands to benefit immensely from data-driven medicine. At the same time, healthcare must protect the privacy of its patients and their sensitive data from harm. Properly de-identified data enables the benefits while minimizing risk to patients.
 
-De-identified medical data may be used for secondary purposes (ie. research) and be shared with others, under HIPAA law. And over 80% of all medical data resides in free text records: doctor's notes, nurses notes, radiology reports, etc. 
+De-identified medical data may be used for secondary purposes (ie. research) and be shared with others, under HIPAA law. And with up to 70% [[1]](https://www.ncbi.nlm.nih.gov/pubmed/28323609) of all medical data resides in free text records: doctor's notes, nurses notes, radiology reports, etc. 
 
 Historically, free text has been very difficult to properly de-identify. Anoni aims to make it achievable.
 
