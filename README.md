@@ -51,6 +51,10 @@ Now you're free to modify the source code and play around! Visit the website in 
 
 [http://0.0.0.0:5000/](http://0.0.0.0:5000/)
 
+## Training a new model
+
+Coming soon...
+
 ## Acknowledgements
 
 Big thanks to [Explosion AI](https://explosion.ai) and all its contributors for their incredible open-sourced NLP library called Spacy. 
