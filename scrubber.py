@@ -10,7 +10,7 @@ from loader import load_model
 from addins import regex_patterns, geo
 
 
-nlp = load_model(path='model')
+nlp = load_model()
 
 with open('data/dicts/names.set', 'rb') as f:
     names_set = pickle.load(f)
@@ -72,16 +72,14 @@ def replace_entity(token):
     phi_type = None
 
     if token.ent_iob != 'O' and token.text.find('\n') == -1:
-        if os.path.exists('model'):
-            if token.ent_type_ in phi_types:
-                phi_type = token.ent_type_.upper()
-        else:
-            if token.ent_type_ == 'PERSON':
-                phi_type = 'PERSON'
-            elif token.ent_type_ == 'ORG':
-                phi_type = 'ORG'
-            elif token.ent_type_ == 'GPE' and not [g for g in geo if g in token.text]:
-                phi_type = 'GPE'
+        if token.ent_type_ in phi_types:
+            phi_type = token.ent_type_.upper()
+        elif token.ent_type_ == 'PERSON':
+            phi_type = 'PERSON'
+        elif token.ent_type_ == 'ORG':
+            phi_type = 'ORG'
+        elif token.ent_type_ == 'GPE' and not [g for g in geo if g in token.text]:
+            phi_type = 'GPE'
 
     if phi_type:
         index_start = token.idx
