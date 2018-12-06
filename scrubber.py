@@ -4,15 +4,13 @@ from operator import itemgetter
 import spacy
 import re
 import pickle
+import os
 
+from loader import load_model
 from addins import regex_patterns, geo
 
-custom_model = True
 
-if custom_model:
-    nlp = spacy.load('model')
-else:
-    nlp = spacy.load('en_core_web_sm')
+nlp = load_model(path='model')
 
 with open('data/dicts/names.set', 'rb') as f:
     names_set = pickle.load(f)
@@ -22,7 +20,7 @@ def scrub_ml(doc):
     """
     Performs named entity recognition. Assumes that any entities are PHI.
 
-    Args:
+    Positional Args:
         doc: Object     A sequence of Token objects in Spacy.
 
     Returns:
@@ -48,7 +46,7 @@ def replace_entity(token):
     higher. HIPAA allows for geographic descriptions such as state and country.
     If at the state-level or higher, it does not scrub the entity.
 
-    Args:
+    Positional Args:
         token: Object   A Spacy object for >= 1 word, punctuation, etc.
 
     Returns:
@@ -74,7 +72,7 @@ def replace_entity(token):
     phi_type = None
 
     if token.ent_iob != 'O' and token.text.find('\n') == -1:
-        if custom_model:
+        if os.path.exists('model'):
             if token.ent_type_ in phi_types:
                 phi_type = token.ent_type_.upper()
         else:
@@ -98,7 +96,7 @@ def scrub_regex(text):
     """
     Performs regex matching on text. Assumes that any match is a PHI entry.
 
-    Args:
+    Positional Args:
         text: String    The original text with PHI still included.
 
     Returns:
@@ -115,7 +113,7 @@ def scrub_dict(doc):
     Performs dictionary lookup for each token in the doc. Assumes that any token
     in the dictionary is a PHI entry.
 
-    Args:
+    Positional Args:
         doc: Object     A sequence of Token objects in Spacy.
 
     Returns:
@@ -124,6 +122,32 @@ def scrub_dict(doc):
 
     return [new_phi(token.text, token.idx, token.idx+len(token),'PERSON','DICT')
             for token in doc if token.text.upper() in names_set]
+
+
+def new_phi(text, index_start, index_end, phi_type, scrub_type):
+    """
+    Factory function to create a JSON representation of a PHI entry.
+
+    Positional Args:
+        text: String        Text value of the PHI.
+        index_start: Int    Character offset from document start to PHI start.
+        index_end: Int      Character offset from document start to PHI end.
+        phi_type: String    Category of PHI (ie. PERSON, DATE,...).
+        scrub_type: String  Method used by scrubber (ie. DICT, REGEX, or ML).
+
+    Returns:
+        A JSON representation of a PHI entry.
+    """
+
+    entry = {
+        "text": text,
+        "index_start": index_start,
+        "index_end": index_end,
+        "phi_type": phi_type,
+        "scrub_type": scrub_type
+    }
+
+    return entry
 
 
 def scrubber(text):
@@ -135,7 +159,7 @@ def scrubber(text):
         Regex matching
         Dictionary lookup
 
-    Args:
+    Positional Args:
         text: String    The original text with PHI still included.
 
     Returns:
@@ -171,7 +195,7 @@ def manage_conflicts(phi_entries):
     the algorithm must determine which phi_type to choose to represent the
     new, merged PHI entry. There is no guarantee that phi_type will be the same.
 
-    Args:
+    Positional Args:
         phi_entries: List   The PHI entries and locations within the text.
 
     Returns:
@@ -206,7 +230,7 @@ def replace_phi(text, phi_entries):
     Takes the original, identified text and replaces all instances of PHI with
     the appropriate replacement tag (ie. [*PERSON*], [*ORG*], etc.)
 
-    Args:
+    Positional Args:
         text: String        The original text with PHI still included.
         phi_entries: List   The PHI entries and locations within the text.
 
@@ -235,62 +259,13 @@ def replace_phi(text, phi_entries):
     return deid
 
 
-def new_phi(text, index_start, index_end, phi_type, scrub_type):
-    """
-    Factory function to create a JSON representation of a PHI entry.
-
-    Args:
-        text: String        Text value of the PHI.
-        index_start: Int    Character offset from document start to PHI start.
-        index_end: Int      Character offset from document start to PHI end.
-        phi_type: String    Category of PHI (ie. PERSON, DATE,...).
-        scrub_type: String  Method used by scrubber (ie. DICT, REGEX, or ML).
-
-    Returns:
-        A JSON representation of a PHI entry.
-    """
-
-    entry = {
-        "text": text,
-        "index_start": index_start,
-        "index_end": index_end,
-        "phi_type": phi_type,
-        "scrub_type": scrub_type
-    }
-
-    return entry
-
-
-def new_document(text, deid, phi_entries):
-    """
-    Factory function to create a JSON representation of the original text, the
-    deidentified text, and the PHI entries within the text.
-
-    Args:
-        text: String        The original text with PHI still included.
-        deid: String        The de-identified text with PHI replacements.
-        phi_entries: List   The PHI entries and locations within the text.
-
-    Returns:
-        A JSON representation of the de-identified document.
-    """
-
-    document = {
-        "text": text,
-        "deid": deid,
-        "phi_entries": phi_entries
-    }
-
-    return document
-
-
 def deidentify(text):
     """
     De-identifies text from a single text document. Returns a JSON
     representation of the identified text, the deidentified text, and the PHI
     occurrences within the text.
 
-    Args:
+    Positional Args:
         text: String    The original text with PHI still included.
 
     Returns:
@@ -324,10 +299,16 @@ def deidentify(text):
 
     phi_entries = scrubber(text)
     deid = replace_phi(text, phi_entries)
-    document = new_document(text, deid, phi_entries)
+
+    document = {
+        "text": text,
+        "deid": deid,
+        "phi_entries": phi_entries
+    }
 
     return document
 
 
 if __name__ == '__main__':
+    nlp = load_model()
     pass
