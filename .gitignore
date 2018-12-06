@@ -34,7 +34,8 @@ floyd_requirements.txt
 
 # Physio-Net Nursing Notes Files (IMPORTANT BECAUSE THEY CONTAIN PHI)
 id.text
-id-phi.phrase
-id.phi
 ner.data
 model/
+
+# Future Python features
+future.py
