@@ -35,22 +35,10 @@ import os
 
 from pathlib import Path
 from spacy.util import minibatch, compounding
-from data_generation import create_training_data
+from loader import load_model, load_training_data
 
 
-data_path = 'data/notes/ner.data'
-
-### If NER data does not exist, create and save it to a binary file
-if not os.path.exists(data_path):
-    NER_DATA = create_training_data()
-
-    with open(data_path, 'wb') as f:
-        pickle.dump(NER_DATA, f)
-
-### If NER data exists, load it from a binary file
-else:
-    with open(data_path, 'rb') as f:
-        NER_DATA = pickle.load(f)
+NER_DATA = load_training_data()
 
 
 @plac.annotations(
@@ -70,7 +58,7 @@ def main(model='en_core_web_sm', output_dir=None, n_iter=100, train_size=0.8):
     TEST_DATA = NER_DATA[cutoff:]
 
     ### Load a pre-trained model
-    nlp = spacy.load(model)  # load existing spaCy model
+    nlp = load_model(model_name=model)
     print('Loaded model "%s"' % model)
 
     ### Remove the pre-trained named entity recognizer, if present
