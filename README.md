@@ -41,7 +41,7 @@ python -m spacy download en_core_web_md
 
 The environment should now be setup to run the preprocessing and training scripts.
 
-## Demo
+## Web App Demo
 
 A live version of the de-identification prototype is [here](https://deidentify.ml/demo).
 
