@@ -13,7 +13,7 @@ Historically, free text has been very difficult to properly de-identify. Anoni a
 
 ## Benchmarks for i2b2 De-Identification Dataset
 
-**March 2nd, 2019:** 97.6% dev F1-score with bert_base_uncased
+**bert-base-uncased:** 98.1% dev F1-score
 
 ## Dataset
 
