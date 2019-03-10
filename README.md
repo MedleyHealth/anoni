@@ -15,7 +15,7 @@ Historically, free text has been very difficult to properly de-identify. Anoni a
 
 **bert-base-uncased:** 98.12% dev F1-score (state-of-the-art)
 
-We're still verifying that our results are valid. If they are, the previous state-of-the-art was 98.05% using GRU + text skeleton [[2]](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5872383/#Tab3). We expect to see even higher performance once we fine tune the BERT large model.
+The previous state-of-the-art was 98.05% using GRU + text skeleton [[2]](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5872383/#Tab3). We're still verifying that our results are valid and comparable to the past works. We expect to see even higher performance once we fine tune the BERT large model. We will publish a whitepaper once done.
 
 ## Dataset
 
