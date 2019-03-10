@@ -11,7 +11,7 @@ De-identified medical data may be used for secondary purposes (ie. research) and
 Historically, free text has been very difficult to properly de-identify. Anoni aims to make it achievable.
 
 
-## Benchmarks for i2b2 De-Identification Dataset
+## Benchmarks for 2014 i2b2 De-Identification Dataset
 
 **bert-base-uncased:** 98.1% dev F1-score
 
