@@ -27,7 +27,7 @@ There are many more PHI tokens than PHI instances because the WordPiece tokenize
 
 ## Docker
 
-A Docker container with all the necessary libraries is available at [medralabs/pytorch-jupyter:latest](https://cloud.docker.com/repository/docker/medralabs/pytorch-jupyter)
+A Docker container with all the necessary libraries is available at [medralabs/pytorch-jupyter:latest](https://cloud.docker.com/repository/docker/medralabs/pytorch-jupyter). Note that it must be run on a machine with available GPUs to setup properly.
 
 ## Setting Up GPU Environment
 
