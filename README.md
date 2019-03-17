@@ -25,6 +25,10 @@ The i2b2 2014 de-identification dataset is the largest publically available data
 
 There are many more PHI tokens than PHI instances because the WordPiece tokenizer for BERT puts all punctuation into a separate token. So, "03/12/2019" becomes a list of "03", "/", "12", "/", "2019". 1 PHI instance becomes 5 PHI tokens.
 
+## Docker
+
+A Docker container with all the necessary libraries is available at [medralabs/pytorch-jupyter:latest](https://cloud.docker.com/repository/docker/medralabs/pytorch-jupyter)
+
 ## Setting Up GPU Environment
 
 BERT must be trained on a GPU. I personally use [Floydhub workspaces](https://docs.floydhub.com/guides/workspace/) because it's extremely simple if a bit pricey. Luckily, it only takes around 10-15 minutes to fine tune BERT base on the 16GB GPU2 (Tesla V100). The 12GB GPU takes around 1.25-1.5 hours, so it's actually cheaper to use the more expensive per hour GPU2.
