@@ -2,7 +2,7 @@
 
 ## Purpose
 
-To make medical data accessible and advance medical research.
+To make clinical data accessible and enable new types of healthcare research.
 
 Healthcare stands to benefit immensely from data-driven medicine. At the same time, healthcare must protect the privacy of its patients and their sensitive data from harm. Properly de-identified data enables the benefits while minimizing risk to patients.
 
